@@ -1,20 +1,29 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Button, IconButton } from "@chakra-ui/react";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Box, Button } from "@chakra-ui/react";
 
-export default function Paginate({ questionsPerPage, totalQuestions, nextPage, checkTheAnswer }) {
+export default function Paginate({ questionsPerPage, totalQuestions, nextPage, isResponseSubmitted, setIsResponseSubmitted, setIsGoodAnswer }) {
 
     const pageNumbers = [];
+
 
     for (let i = 1; i <= Math.ceil(totalQuestions / questionsPerPage); i++) {
         pageNumbers.push(i);
     }
 
+    const handleNextpage = () => {
+        nextPage()
+        setIsResponseSubmitted(false)
+        setIsGoodAnswer(false)
+    }
+
     return (
-        <div className="pagination-container">
-            <Button onClick={checkTheAnswer}> Valider</Button>
-            <IconButton
-                icon={<ChevronDownIcon />}
-                onClick={nextPage} />
-        </div>
+        <>
+            {
+                isResponseSubmitted &&
+                <Box display="flex" justifyContent="flex-end">
+                    <Button mt={6} rightIcon={<ChevronRightIcon />} onClick={handleNextpage} variant="outline">Question suivante</Button>
+                </Box>
+            }
+        </>
     )
 }

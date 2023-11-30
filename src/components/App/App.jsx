@@ -1,12 +1,12 @@
 
 import './App.css'
-import RandomQuizzes from '../RandomQuizzes.jsx'
+import Index from '../Index.jsx'
 
 function App() {
 
   return (
     <>
-      <RandomQuizzes />
+      <Index />
     </>
   )
 }

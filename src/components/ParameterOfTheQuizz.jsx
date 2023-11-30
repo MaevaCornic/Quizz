@@ -1,14 +1,28 @@
 import { fetchRandomQuiz } from '../fetch';
 
-import { Button, Center, Select } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, Button, Select } from '@chakra-ui/react'
 import { useFormik } from 'formik'
+import { useState } from 'react';
 
-export default function ParametersOfTheQuizz({ setQuestions, onClose }) {
+export default function ParametersOfTheQuizz({ onSubmitParams }) {
 
-    const handleSubmitCreateQuiz = (values) => {
-        // function to fetch the quizz, in the folder "utils"
-        fetchRandomQuiz(values, setQuestions, onClose)
+    const [error, setError] = useState('')
+
+    const handleSubmitCreateQuiz = async (values) => {
+
+        // function to fetch the quizz. In the folder "fetch"
+        try {
+            setError('')
+            const data = await fetchRandomQuiz(values)
+            console.log(data)
+            onSubmitParams(data)
+
+
+        } catch (error) {
+            setError(error.message)
+        }
     }
+
     const formik = useFormik({
         initialValues: {
             category: "",
@@ -16,7 +30,6 @@ export default function ParametersOfTheQuizz({ setQuestions, onClose }) {
         },
         onSubmit: handleSubmitCreateQuiz
     })
-
 
     return (
         <div>
@@ -38,6 +51,12 @@ export default function ParametersOfTheQuizz({ setQuestions, onClose }) {
 
                 <Button type="submit" colorScheme="purple" mt={4} justifyContent="end">Start the quizz</Button>
 
+                {error &&
+                    <Alert status='error'>
+                        <AlertIcon />
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                }
             </form>
         </div >
     )
