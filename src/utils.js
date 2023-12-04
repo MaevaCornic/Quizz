@@ -17,19 +17,5 @@ export function shuffle(array) {
 }
 
 
-export const getTotalQuizzPerTags = async () => {
-    try {
-        const data = await fetch('https://the-trivia-api.com/v2/totals-per-tag?' + new URLSearchParams({
-            categories: 'film_and_tv',
-            difficulties: 'easy, medium',
-            tags: 'film_and_tv',
-            // headers
-        }))
-        const response = await data.json()
-        console.log(response)
 
-    } catch (error) {
-        console.error(error)
-    }
-}
 

@@ -2,25 +2,24 @@ import { Box, Button, Center, Radio, RadioGroup, Stack, Text } from '@chakra-ui/
 import { useMemo, useState } from 'react'
 import { shuffle } from '../utils'
 
-export default function Quizz({ item, isResponseSubmitted, setIsResponseSubmitted, onSuccess, currentQuestion, totalQuestions, onFinish, setIsGoodAnswer, isGoodAnswer }) {
-  // console.log(item.correctAnswer)
+export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubmitted, currentQuestionNumber, totalQuestions, onFinish, setIsGoodAnswer, isGoodAnswer, onSuccess }) {
 
   /**
    * New array with all the answers together 
    * Suffle is coming from a function found in Stackoverflow. 
-   */
-  const suggestions = useMemo(() => shuffle([item.correctAnswer, ...item.incorrectAnswers]), [item])
+  */
+  // useMemo => to memorise. By passing the item in the array, the suggestions change only when th item change. Without it, as soon as a value is selected => the component is re-render and the function is executed again, so the shuffle ! 
+  const suggestions = useMemo(() => {
+
+    if (!item?.id) {
+      return []
+    }
+    return shuffle([item.correctAnswer, ...item.incorrectAnswers])
+  },
+    [item])
 
   const [value, setValue] = useState('')
-
-  // To show the message of good or wrong answer
-  // const [isGoodAnswer, setIsGoodAsnwer] = useState(false)
-
   const [messageError, setMessageError] = useState(false)
-
-  if (!item?.id) {
-    return null
-  }
 
   const handleNoAnswerSelected = () => {
     setMessageError(true)
@@ -35,7 +34,7 @@ export default function Quizz({ item, isResponseSubmitted, setIsResponseSubmitte
 
     else if (value === item?.correctAnswer) {
       setIsGoodAnswer(true)
-      onSuccess(value)
+      onSuccess()
       setIsResponseSubmitted(true)
       setMessageError(false)
 
@@ -45,28 +44,30 @@ export default function Quizz({ item, isResponseSubmitted, setIsResponseSubmitte
       setMessageError(false)
     }
 
-    if (currentQuestion === totalQuestions) {
+    if (currentQuestionNumber === totalQuestions) {
       onFinish()
     }
-
   }
+
+  if (!item?.id) {
+    return null
+  }
+
   return (
     <>
       <Text fontWeight="bold" mt={4} mb={1} key={item.id}>{item.question.text}</Text>
 
       <RadioGroup onChange={setValue} value={value}>
-
         <Stack direction="row">
           {suggestions.map((suggestion) => (
             <Box key={suggestion} display="flex" flexDir="column">
               <Radio mt={2} value={suggestion} isReadOnly={isGoodAnswer}>{suggestion}</Radio>
             </Box>
           ))}
-
         </Stack>
-
       </RadioGroup>
 
+      {/* To manage the message of  the answer */}
       {!isResponseSubmitted ? null :
         isGoodAnswer === true ?
           <Center>
@@ -87,7 +88,8 @@ export default function Quizz({ item, isResponseSubmitted, setIsResponseSubmitte
 
       {!isResponseSubmitted ?
         <Box display="flex" justifyContent="flex-end">
-          < Button onClick={checkTheAnswer} mt={5} colorScheme="purple">Valider</Button ></Box>
+          < Button onClick={checkTheAnswer} mt={5} colorScheme="purple">Valider</Button >
+        </Box>
         : null
       }
     </>
