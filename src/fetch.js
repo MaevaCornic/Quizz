@@ -7,7 +7,7 @@ const url = "https://the-trivia-api.com/v2"
 export const fetchRandomQuiz = async (values) => {
     try {
         const data = await fetch(`${url}/questions?` + new URLSearchParams({
-            limit: 2,
+            limit: 10,
             categories: values.category,
             difficulties: values.difficulty,
             // tags: values.category,

@@ -23,7 +23,6 @@ export default function Index() {
     const [isGoodAnswer, setIsGoodAnswer] = useState(false)
 
     // To stock the good answers
-    // const [goodAnswers, setGoodAnswers] = useState([])
     const [goodAnswers, setGoodAnswers] = useState(0)
 
     const [isScoreShowed, setIsScoreShowed] = useState(false)
