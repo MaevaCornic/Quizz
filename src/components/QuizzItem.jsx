@@ -1,8 +1,15 @@
 import { Box, Button, Center, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { shuffle } from '../utils'
+import { updatePoints } from '../fetch'
+import { AppContext } from './AppContext'
 
 export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubmitted, currentQuestionNumber, totalQuestions, onFinish, setIsGoodAnswer, isGoodAnswer, onSuccess }) {
+
+  const { isLoggedIn } = useContext(AppContext)
+  // useState
+  const [value, setValue] = useState('')
+  const [messageError, setMessageError] = useState(false)
 
   /**
    * New array with all the answers together 
@@ -10,24 +17,21 @@ export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubm
   */
   // useMemo => to memorise. By passing the item in the array, the suggestions change only when th item change. Without it, as soon as a value is selected => the component is re-render and the function is executed again, so the shuffle ! 
   const suggestions = useMemo(() => {
-
     if (!item?.id) {
       return []
     }
     return shuffle([item.correctAnswer, ...item.incorrectAnswers])
-  },
-    [item])
+  }, [item])
 
-  const [value, setValue] = useState('')
-  const [messageError, setMessageError] = useState(false)
 
+  // Functions  
   const handleNoAnswerSelected = () => {
     setMessageError(true)
     setIsResponseSubmitted(false)
   }
 
   // To define a succes message or not regarding the answer
-  const checkTheAnswer = () => {
+  const checkTheAnswer = async () => {
     if (value === "") {
       handleNoAnswerSelected()
     }
@@ -45,6 +49,9 @@ export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubm
     }
 
     if (currentQuestionNumber === totalQuestions) {
+      if (isLoggedIn) {
+        await updatePoints()
+      }
       onFinish()
     }
   }
@@ -71,18 +78,18 @@ export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubm
       {!isResponseSubmitted ? null :
         isGoodAnswer === true ?
           <Center>
-            <Text bg="green.100" width="350px" p={6} mt={6} borderRadius={10}>Bravoooo, c&apos;est une bonne réponse !!</Text>
+            <Text bg="green.100" width="350px" p={6} mt={6} borderRadius={10}>Congrats !! It&apos;s a good answer!!</Text>
           </Center>
           : isGoodAnswer === false &&
           <Center>
-            <Text bg="red.100" width="350px" p={6} mt={6} borderRadius={10}>Dommage, mauvaise réponse ! <br />
-              La bonne réponse était : <Box as="span" fontWeight="bold">{item.correctAnswer}</Box> </Text>
+            <Text bg="red.100" width="350px" p={6} mt={6} borderRadius={10}>Too bad, wrong answer! <br />
+              The right answer was : <Box as="span" fontWeight="bold">{item.correctAnswer}</Box> </Text>
           </Center>
       }
 
       {messageError &&
         <Center>
-          <Text bg="yellow.100" width="350px" p={6} mt={6} borderRadius={10}>Veuillez sélectionnez une réponse !</Text>
+          <Text bg="yellow.100" width="350px" p={6} mt={6} borderRadius={10}>Choose an answer please !</Text>
         </Center>
       }
 

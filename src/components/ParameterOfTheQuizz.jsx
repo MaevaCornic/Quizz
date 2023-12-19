@@ -1,29 +1,33 @@
 import { fetchRandomQuiz, getCategories } from '../fetch';
 
-import { Alert, AlertDescription, AlertIcon, Button, Select, } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, Box, Button, Select, } from '@chakra-ui/react'
 import { useFormik } from 'formik'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from './AppContext';
+import MyDrawer from './Auth/Drawer';
 
 export default function ParametersOfTheQuizz({ onSubmitParams }) {
 
+
+    const { isLoggedIn } = useContext(AppContext)
+    // useState
     const [categories, setCategories] = useState([])
-
-    const initCategories = async () => {
-        const data = await getCategories();
-        console.log(data)
-
-        setCategories(Object.keys(data));
-
-    }
-
-    useEffect(() => {
-        initCategories()
-    }, [])
-
     const [error, setError] = useState('')
 
+    // Functions
+    // Function to get all the categories and with the "Object.keys" restructure the data to be able to map on all of them.
+    const initCategories = async () => {
+        try {
+            const data = await getCategories();
+            setCategories(Object.keys(data));
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    // Function to create the quizz wanted (categories and level) by the user.
     const handleSubmitCreateQuiz = async (values) => {
-        // function to fetch the quizz. In the folder "fetch"
         try {
             setError('')
             const data = await fetchRandomQuiz(values)
@@ -34,6 +38,10 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
         }
     }
 
+    const handleOpenDrawer = () => {
+    }
+
+    // Hook useFormik
     const formik = useFormik({
         initialValues: {
             category: "",
@@ -42,6 +50,10 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
 
         onSubmit: handleSubmitCreateQuiz
     })
+
+    useEffect(() => {
+        initCategories()
+    }, [])
 
     return (
         <div>
@@ -53,13 +65,16 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
                 </Select>
 
                 <Select name="difficulty" value={formik.values.difficulty} onChange={formik.handleChange} placeholder='Select difficulty' bg="orange" m={3} width="200px">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
+                    <option value="easy" selected>Easy</option>
+                    <option value="medium" disabled={!isLoggedIn}>Medium</option>
+                    <option value="hard" disabled={!isLoggedIn}>Hard</option>
+                    <option disabled hidden={isLoggedIn}>Pour accéder aux autres niveaux veuillez créer un compte</option>
                 </Select>
 
-                <Button type="submit" colorScheme="purple" mt={4} justifyContent="end">Start the quizz</Button>
-
+                <Box display="flex">
+                    <Button type="submit" colorScheme="purple" mt={4} justifyContent="end">Start the quizz</Button>
+                    <Button mt={4} ml={2} onClick={handleOpenDrawer}>Sign up/Log in</Button>
+                </Box>
                 {error &&
                     <Alert status='error'>
                         <AlertIcon />
