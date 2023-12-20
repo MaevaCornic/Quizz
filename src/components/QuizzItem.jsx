@@ -1,12 +1,14 @@
-import { Box, Button, Center, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
-import { useContext, useMemo, useState } from 'react'
 import { shuffle } from '../utils'
 import { updatePoints } from '../fetch'
 import { AppContext } from './AppContext'
 
+import { Box, Button, Center, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
+import { useContext, useMemo, useState } from 'react'
+
 export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubmitted, currentQuestionNumber, totalQuestions, onFinish, setIsGoodAnswer, isGoodAnswer, onSuccess }) {
 
   const { isLoggedIn } = useContext(AppContext)
+
   // useState
   const [value, setValue] = useState('')
   const [messageError, setMessageError] = useState(false)

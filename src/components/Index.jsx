@@ -8,19 +8,14 @@ import ParametersOfTheQuizz from './ParameterOfTheQuizz';
 import NextPage from './NextPage';
 import QuizzItem from './QuizzItem';
 import Result from './Result';
-import Auth from './Auth/LogIn';
 import { AppContext } from './AppContext';
 import { updatePoints } from '../fetch';
-import Profile from './Profile';
 import HeaderBar from './HeaderBar';
 
 export default function Index() {
 
     // useContext
     const { user, setUser, isLoggedIn } = useContext(AppContext)
-
-    // To handle the modal of the drawer
-    const { isOpen: isOpenDrawer, onOpen: onOpenDrawer, onClose: onCloseDrawer } = useDisclosure()
 
     // useState
     const [questions, setQuestions] = useState([])
@@ -37,8 +32,6 @@ export default function Index() {
     // Pagination to get a question per div 
     const [currentQuestionNumber, setcurrentQuestionNumber] = useState(1);
     const actualQuestion = questions[currentQuestionNumber - 1]
-    // To increment the point
-    const [points, setPoints] = useState(1)
 
     // Functions
     // To handle the next question page + the submit "prochaine question" 

@@ -1,6 +1,6 @@
-// To create the context
-import { createContext, useEffect, useState } from 'react';
 import { authentification, findUser, register } from '../fetch';
+
+import { createContext, useEffect, useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 
 export const AppContext = createContext();
@@ -36,7 +36,6 @@ export default function AppContextProvider({ children }) {
             console.log(newUser)
             setUser(newUser.user)
             setIsLoggedIn(true)
-
             setErrorMessage(false)
             onClose()
         } catch (error) {

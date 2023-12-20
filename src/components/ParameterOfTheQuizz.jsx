@@ -1,13 +1,11 @@
 import { fetchRandomQuiz, getCategories } from '../fetch';
+import { AppContext } from './AppContext';
 
 import { Alert, AlertDescription, AlertIcon, Box, Button, Select, } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from './AppContext';
-import MyDrawer from './Auth/Drawer';
 
 export default function ParametersOfTheQuizz({ onSubmitParams }) {
-
 
     const { isLoggedIn } = useContext(AppContext)
     // useState
@@ -80,9 +78,7 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
                         <AlertIcon />
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>}
-
             </form>
-
         </div>
     )
 }

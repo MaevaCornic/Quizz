@@ -1,7 +1,8 @@
-import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react"
-import { useContext } from "react"
 import { AppContext } from "./AppContext"
 import { updateProfile } from "../fetch"
+
+import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react"
+import { useContext } from "react"
 import { useFormik } from "formik"
 
 
@@ -40,6 +41,7 @@ export default function Profile({ isOpen, onClose }) {
             updateInfosUser(values)
         }
     })
+
     if (user?.id) {
         return (
             <div>
@@ -57,7 +59,6 @@ export default function Profile({ isOpen, onClose }) {
                                 <Input name="username" pl={2} mb={5} value={formik.values.username} onChange={formik.handleChange} />
 
                                 <Text mb={2} fontWeight={500}>Your email</Text>
-                                {/* <Text>{user?.email}</Text> */}
                                 <Input pl={2} defaultValue={user?.email} isReadOnly variant='unstyled' mb={5} />
 
                                 <Text mb={2} fontWeight={500}>Games played</Text>

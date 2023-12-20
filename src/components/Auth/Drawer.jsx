@@ -59,13 +59,9 @@ export default function MyDrawer() {
                             </Alert>
                         }
 
-
                     </DrawerContent>
                 </Container>
             </Drawer>
-
-
-
         </div>
     )
 }

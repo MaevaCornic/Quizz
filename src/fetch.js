@@ -8,8 +8,6 @@ export const fetchRandomQuiz = async (values) => {
             limit: 2,
             categories: values.category,
             difficulties: values.difficulty,
-            // tags: values.category,
-            // headers: myHeaders
         }))
 
         if (!data.ok) {
@@ -73,6 +71,7 @@ export const authentification = async (values) => {
 
 // To find a specific user with the token
 export const findUser = async (token) => {
+
     try {
 
         const data = await fetch(`${urlBackEnd}/users/me`, {
@@ -162,9 +161,6 @@ export const register = async (values) => {
             method: "POST",
             body: bodyContent
         })
-        // if (!data.ok) {
-        //     throw new Error("data pas ok")
-        // }
         const response = await data.json()
         localStorage.setItem('token', response.jwt)
         return response
