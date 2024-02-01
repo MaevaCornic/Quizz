@@ -12,13 +12,13 @@ Ce projet a été réalisé afin de pratiquer certaines technologies et en déco
 
 - Pour le front-end :  
 
-Utilisation du framework **React.js** pour le côté dynamique de l'application, **Chakra UI** pour la partie design, mise en page, et, afin de gérer les différents formulaires de l'application j'ai utilisé **Formik**. Pour tout ce qui concerne le quizz en lui même, (questions et réponses) j'ai utilisé l'API [Trivia Quizz](https://the-trivia-api.com/v2) et l'API **Fetch** pour mes différents appels. 
+Utilisation du framework **React.js** pour le côté dynamique de l'application, **Chakra UI** pour la partie design, mise en page, et pour gérer les différents formulaires de l'application j'ai utilisé **Formik**. Pour tout ce qui concerne le quiz en lui-même (questions et réponses), j'ai utilisé l'API [Trivia Quizz](https://the-trivia-api.com/v2) et l'API **Fetch** pour mes différents appels. 
 
 - Pour le back-end :  
 
 Utilisation de **Strapi** pour gérer la partie authentification et le profil utilisateur.
 
-Trivia Quizz est déployé avec **Vercel**, vous n'avez plus qu'a tester !   
+Trivia Quizz est déployé avec **Vercel**, vous n'avez plus qu'à tester !   
 
-### N'hésitez pas à me faire des [retours](mailto:maeva.cornic@gmail.com), positifs comme négatif c'est toujours bon à prendre &#x1F64F;
+### N'hésitez pas à me faire des [retours](mailto:maeva.cornic@gmail.com), positifs comme négatifs, ils sont toujours bons à prendre &#x1F64F;
 
