@@ -1,8 +1,24 @@
-# React + Vite
+# Trivia Quizz &#x1F3C6;
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+![Capture d'écran de la page d'accueil de Trivia Quizz](./src/assets/Capture%20d'écran%202024-02-01%20205314.png)
+Test tes connaissances avec cette [application](https://quizz-rosy.vercel.app) :)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+## Le projet &#x26A1;
+
+Ce projet a été réalisé afin de pratiquer certaines technologies et en découvrir de nouvelles. Il est toujours en cours afin de gérer le responsive, les différents bugs et, implémenter de nouvelles fonctionnalités. 
+
+- Pour le front-end :  
+
+Utilisation du framework **React.js** pour le côté dynamique de l'application, **Chakra UI** pour la partie design, mise en page, et, afin de gérer les différents formulaires de l'application j'ai utilisé **Formik**. Pour tout ce qui concerne le quizz en lui même, (questions et réponses) j'ai utilisé l'API [Trivia Quizz](https://the-trivia-api.com/v2) et l'API **Fetch** pour mes différents appels. 
+
+- Pour le back-end :  
+
+Utilisation de **Strapi** pour gérer la partie authentification et le profil utilisateur.
+
+Trivia Quizz est déployé avec **Vercel**, vous n'avez plus qu'a tester !   
+
+### N'hésitez pas à me faire des [retours](mailto:maeva.cornic@gmail.com), positifs comme négatif c'est toujours bon à prendre &#x1F64F;
+

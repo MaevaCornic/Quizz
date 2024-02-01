@@ -42,11 +42,6 @@ export default function LogIn({ handleRegisterForm, onClose }) {
                         </Stack>
                     </Stack>
                     <Box
-                    // py={{ base: '0', sm: '8' }}
-                    // px={{ base: '4', sm: '10' }}
-                    // bg={{ base: 'transparent', sm: 'bg.surface' }}
-                    // boxShadow={{ base: 'none', sm: 'md' }}
-                    // borderRadius={{ base: 'none', sm: 'xl' }}
                     >
                         <Stack spacing="6">
                             <form onSubmit={formik.handleSubmit}>
