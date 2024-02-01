@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Button, Container, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box, Button, Container, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react'
 import { useContext, useRef, useState } from 'react'
 import Register from './Register'
 import LogIn from './LogIn'
@@ -30,7 +30,9 @@ export default function MyDrawer() {
 
     return (
         <div>
-            <Button ml={3} variant="unstyled" onClick={handleConnexionButton} ref={btnRef}>Connexion</Button>
+            <Box >
+                <Button ml={3} variant="unstyled" onClick={handleConnexionButton} ref={btnRef}>Connexion</Button>
+            </Box>
 
             <Drawer
                 isOpen={isOpenDrawer}

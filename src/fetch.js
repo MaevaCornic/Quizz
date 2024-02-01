@@ -1,13 +1,13 @@
 const urlApi = "https://the-trivia-api.com/v2"
 const urlBackEnd = 'https://quizz-backend-xdv2.onrender.com/api'
 
-// To fetch a quizz regardind the category and the difficuty choosen by the user.
-export const fetchRandomQuiz = async (values) => {
+// To fetch a quizz regarding the category and the difficuty choosen by the user.
+export const fetchRandomQuiz = async (categorySelected, level) => {
     try {
         const data = await fetch(`${urlApi}/questions?` + new URLSearchParams({
-            limit: 2,
-            categories: values.category,
-            difficulties: values.difficulty,
+            limit: 10,
+            categories: categorySelected,
+            difficulties: level,
         }))
 
         if (!data.ok) {
@@ -15,6 +15,7 @@ export const fetchRandomQuiz = async (values) => {
         }
 
         const response = await data.json()
+        console.log("coucou")
         return response
 
     } catch (error) {
@@ -169,21 +170,3 @@ export const register = async (values) => {
         console.log(error.message)
     }
 }
-
-// const getTotalQuizzPerTags = async (valueCategory) => {
-//     try {
-//         const data = await fetch('https://the-trivia-api.com/v2/totals-per-tag?' + new URLSearchParams({
-//             categories: valueCategory,
-//             difficulties: 'hard',
-//             tags: valueCategory,
-//             myHeaders
-//         }))
-
-//         const response = await data.json()
-//         console.log(response)
-//         setQuestions(response)
-
-//     } catch (error) {
-//         console.error(error)
-//     }
-// }

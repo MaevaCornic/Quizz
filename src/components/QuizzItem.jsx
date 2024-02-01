@@ -97,7 +97,7 @@ export default function QuizzItem({ item, isResponseSubmitted, setIsResponseSubm
 
       {!isResponseSubmitted ?
         <Box display="flex" justifyContent="flex-end">
-          < Button onClick={checkTheAnswer} mt={5} colorScheme="purple">Valider</Button >
+          < Button onClick={checkTheAnswer} mt={5} colorScheme="teal">Validate</Button >
         </Box>
         : null
       }

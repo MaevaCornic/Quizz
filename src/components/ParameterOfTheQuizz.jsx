@@ -1,16 +1,19 @@
 import { fetchRandomQuiz, getCategories } from '../fetch';
 import { AppContext } from './AppContext';
 
-import { Alert, AlertDescription, AlertIcon, Box, Button, Select, } from '@chakra-ui/react'
-import { useFormik } from 'formik'
+import { Alert, AlertDescription, AlertIcon, Box, Button, Flex, Link, SimpleGrid, Text } from '@chakra-ui/react'
 import { useContext, useEffect, useState } from 'react';
 
 export default function ParametersOfTheQuizz({ onSubmitParams }) {
 
-    const { isLoggedIn } = useContext(AppContext)
+    const { isLoggedIn, onOpenDrawer } = useContext(AppContext)
+
     // useState
     const [categories, setCategories] = useState([])
     const [error, setError] = useState('')
+    const [categorySelected, setCategorySelected] = useState('')
+    const [level, setLevel] = useState('')
+
 
     // Functions
     // Function to get all the categories and with the "Object.keys" restructure the data to be able to map on all of them.
@@ -25,10 +28,10 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
     }
 
     // Function to create the quizz wanted (categories and level) by the user.
-    const handleSubmitCreateQuiz = async (values) => {
+    const handleSubmitCreateQuiz = async () => {
         try {
             setError('')
-            const data = await fetchRandomQuiz(values)
+            const data = await fetchRandomQuiz(categorySelected, level)
             onSubmitParams(data)
 
         } catch (error) {
@@ -36,49 +39,34 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
         }
     }
 
-    const handleOpenDrawer = () => {
-    }
-
-    // Hook useFormik
-    const formik = useFormik({
-        initialValues: {
-            category: "",
-            difficulty: "",
-        },
-
-        onSubmit: handleSubmitCreateQuiz
-    })
-
     useEffect(() => {
         initCategories()
     }, [])
 
     return (
-        <div>
-            <form onSubmit={formik.handleSubmit}>
-                <Select name="category" value={formik.values.category} onChange={formik.handleChange} placeholder='Select categories' bg="pink" m={3} width="200px">
+        <Flex alignItems="center">
+            <Box>
+                <SimpleGrid columns={{ base: 1, lg: 2 }}>
                     {categories.map((category) => (
-                        <option key={category} value={category}>{category}</option>
+                        <Box key={category} p={5} bg={categorySelected === category ? "#02C39A" : "#EFE6DD"} m={2} height='80px' boxShadow="xl" borderRadius={5} onClick={() => setCategorySelected(category)} cursor="pointer" textTransform="uppercase" fontWeight='semibold'>{category}</Box>
                     ))}
-                </Select>
+                </SimpleGrid>
+            </Box>
+            <Box ml={12}>
+                <SimpleGrid columns={3} mt={7}>
+                    <Box as="button" borderWidth={"1px"} borderColor={"gray.600"} m={1} onClick={() => setLevel("easy")} >EASY</Box>
+                    <Box as="button" cursor={!isLoggedIn ? "not-allowed" : "pointer"} disabled={!isLoggedIn} bgColor={!isLoggedIn ? "gray.100" : ""} borderWidth={isLoggedIn ? "1px" : ""} borderColor={isLoggedIn ? "gray.600" : ""} m={1} onClick={() => setLevel("medium")}>MEDIUM</Box>
+                    <Box as="button" cursor={!isLoggedIn ? "not-allowed" : "pointer"} disabled={!isLoggedIn} bgColor={!isLoggedIn ? "gray.100" : ""} borderWidth={isLoggedIn ? "1px" : ""} borderColor={isLoggedIn ? "gray.600" : ""} m={1} onClick={() => setLevel("hard")}>HARD</Box>
+                </SimpleGrid >
+                <Text fontStyle="italic" hidden={isLoggedIn}>If you wanna unlock the others levels, <Link onClick={onOpenDrawer}>log in</Link></Text>
 
-                <Select name="difficulty" value={formik.values.difficulty} onChange={formik.handleChange} placeholder='Select difficulty' bg="orange" m={3} width="200px">
-                    <option value="easy" selected>Easy</option>
-                    <option value="medium" disabled={!isLoggedIn}>Medium</option>
-                    <option value="hard" disabled={!isLoggedIn}>Hard</option>
-                    <option disabled hidden={isLoggedIn}>Pour accéder aux autres niveaux veuillez créer un compte</option>
-                </Select>
-
-                <Box display="flex">
-                    <Button type="submit" colorScheme="purple" mt={4} justifyContent="end">Start the quizz</Button>
-                    <Button mt={4} ml={2} onClick={handleOpenDrawer}>Sign up/Log in</Button>
-                </Box>
-                {error &&
-                    <Alert status='error'>
-                        <AlertIcon />
-                        <AlertDescription>{error}</AlertDescription>
-                    </Alert>}
-            </form>
-        </div>
+                <Button m={10} colorScheme="teal" color="white" textTransform="uppercase" onClick={handleSubmitCreateQuiz}>Start the quizz </Button>
+            </Box>
+            {error &&
+                <Alert status='error'>
+                    <AlertIcon />
+                    <AlertDescription>{error}</AlertDescription>
+                </Alert>}
+        </Flex >
     )
 }
