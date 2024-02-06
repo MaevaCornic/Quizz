@@ -58,7 +58,7 @@ export default function ParametersOfTheQuizz({ onSubmitParams }) {
                     <Box as="button" cursor={!isLoggedIn ? "not-allowed" : "pointer"} disabled={!isLoggedIn} bgColor={!isLoggedIn ? "gray.100" : ""} borderWidth={isLoggedIn ? "1px" : ""} borderColor={isLoggedIn ? "gray.600" : ""} m={1} onClick={() => setLevel("medium")}>MEDIUM</Box>
                     <Box as="button" cursor={!isLoggedIn ? "not-allowed" : "pointer"} disabled={!isLoggedIn} bgColor={!isLoggedIn ? "gray.100" : ""} borderWidth={isLoggedIn ? "1px" : ""} borderColor={isLoggedIn ? "gray.600" : ""} m={1} onClick={() => setLevel("hard")}>HARD</Box>
                 </SimpleGrid >
-                <Text fontStyle="italic" hidden={isLoggedIn}>If you wanna unlock the others levels, <Link onClick={onOpenDrawer}>log in</Link></Text>
+                <Text fontStyle="italic" hidden={isLoggedIn}>If you wanna unlock the others levels, <Link onClick={onOpenDrawer}>sign up</Link></Text>
 
                 <Button m={10} colorScheme="teal" color="white" textTransform="uppercase" onClick={handleSubmitCreateQuiz}>Start the quizz </Button>
             </Box>

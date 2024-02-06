@@ -12,7 +12,7 @@ export default function MyDrawer() {
 
     const [isLogInForm, setIsLogInForm] = useState(false)
 
-    //   To show or how hide the "Connexion" button. 
+    //   To show or how hide the "Log in" button. 
     const handleConnexionButton = () => {
         onOpenDrawer()
         setIsLogInForm(true)
@@ -31,7 +31,7 @@ export default function MyDrawer() {
     return (
         <div>
             <Box >
-                <Button ml={3} variant="unstyled" onClick={handleConnexionButton} ref={btnRef}>Connexion</Button>
+                <Button ml={3} variant="unstyled" onClick={handleConnexionButton} ref={btnRef}>Log in </Button>
             </Box>
 
             <Drawer

@@ -15,7 +15,6 @@ export const fetchRandomQuiz = async (categorySelected, level) => {
         }
 
         const response = await data.json()
-        console.log("coucou")
         return response
 
     } catch (error) {
@@ -138,9 +137,10 @@ export const updateProfile = async (values, id) => {
             body: bodyContent
         })
 
-        if (!data.ok) {
-            throw new Error('Erreur sur le PUT')
-        }
+        // if (!data.ok) {
+        //     console.log(error.message)
+        //     throw new Error('Erreur sur le PUT')
+        // }
         const response = await data.json()
         return response
 
