@@ -1,7 +1,7 @@
 # Trivia Quizz &#x1F3C6;
 
 
-![Capture d'écran de la page d'accueil de Trivia Quizz](./src/assets/Capture%20d'écran%202024-02-01%20205314.png)
+![Capture d'écran de la page d'accueil de Trivia Quizz](./src/assets/Capture%20d'écran%202024-02-06%20194041.png)
 Test tes connaissances avec cette [application](https://quizz-rosy.vercel.app) :)
 
 
